@@ -1,0 +1,36 @@
+@startuml
+actor "Владелец дома" as Owner
+actor "Гость" as Guest
+actor "Администратор системы" as Admin
+actor "Сервис уведомлений" as Notifier
+
+rectangle "Умный дом" {
+    usecase "Управление освещением" as LightControl
+    usecase "Управление климатом" as ClimateControl
+    usecase "Управление безопасностью" as SecurityControl
+    usecase "Просмотр камер" as CameraView
+    usecase "Управление умными устройствами" as DeviceControl
+    usecase "Получение уведомлений" as Notifications
+    usecase "Настройка системы" as SystemSetup
+    usecase "Добавление/удаление устройств" as DeviceManage
+    usecase "Управление доступом пользователей" as AccessControl
+}
+
+Owner --> LightControl
+Owner --> ClimateControl
+Owner --> SecurityControl
+Owner --> CameraView
+Owner --> DeviceControl
+Owner --> Notifications
+
+Guest --> LightControl
+Guest --> ClimateControl
+Guest --> CameraView
+
+Admin --> SystemSetup
+Admin --> DeviceManage
+Admin --> AccessControl
+
+Notifier --> Notifications
+@enduml
+
