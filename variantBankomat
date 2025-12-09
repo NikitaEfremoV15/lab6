@@ -1,0 +1,63 @@
+@startuml
+actor "Клиент банка" as Client
+actor "Инкассатор" as Collector
+actor "Технический специалист" as Technician
+actor "Банковская система" as BankSystem
+actor "Система безопасности" as SecuritySystem
+
+rectangle "Банкомат (ATM)" {
+    usecase "Снятие наличных" as WithdrawCash
+    usecase "Проверка баланса" as CheckBalance
+    usecase "Выписка по счету" as PrintStatement
+    usecase "Внесение наличных" as DepositCash
+    usecase "Перевод средств" as TransferFunds
+    usecase "Оплата услуг" as PayBills
+    
+    usecase "Загрузка купюр" as LoadCash
+    usecase "Изъятие наличных" as CollectCash
+    usecase "Замена картриджей" as ReplaceCartridges
+    usecase "Техническое обслуживание" as Maintenance
+    
+    usecase "Блокировка карты при подозрении" as BlockCard
+    usecase "Аварийное изъятие карты" as RetainCard
+    usecase "Сигнализация" as Alarm
+    
+    usecase "Изменение PIN-кода" as ChangePIN
+    usecase "Смена языка" as ChangeLanguage
+}
+
+' Основной клиентский функционал
+Client --> WithdrawCash
+Client --> CheckBalance
+Client --> PrintStatement
+Client --> DepositCash
+Client --> TransferFunds
+Client --> PayBills
+Client --> ChangePIN
+Client --> ChangeLanguage
+
+' Функции инкассатора
+Collector --> LoadCash
+Collector --> CollectCash
+Collector --> ReplaceCartridges
+
+' Функции технического специалиста
+Technician --> Maintenance
+Technician --> ReplaceCartridges
+
+' Взаимодействие с банковской системой
+BankSystem --> WithdrawCash : Проверка баланса\nи авторизация
+BankSystem --> DepositCash : Подтверждение зачисления
+BankSystem --> TransferFunds : Выполнение перевода
+BankSystem --> PayBills : Проверка и списание
+BankSystem --> BlockCard : По сигналу мониторинга
+
+' Взаимодействие с системой безопасности
+SecuritySystem --> BlockCard : При подозрительных операциях
+SecuritySystem --> RetainCard : При многократном вводе неверного PIN
+SecuritySystem --> Alarm : При попытке взлома
+
+' Дополнительные связи
+Technician --> Alarm : Тестирование/отключение
+Collector --> Alarm : Отключение при инкассации
+@enduml
