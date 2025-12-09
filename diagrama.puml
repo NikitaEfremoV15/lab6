@@ -1,8 +1,8 @@
 @startuml
 actor "Владелец дома" as Owner
 actor "Гость" as Guest
-actor "Администратор системы" as Admin
-actor "Сервис уведомлений" as Notifier
+actor "Админ системы" as Admin
+actor "Система уведомлений" as Notifier
 
 rectangle "Умный дом" {
     usecase "Управление освещением" as LightControl
